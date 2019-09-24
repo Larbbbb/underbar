@@ -208,11 +208,7 @@
     var iterator = iterator || _.identity;
 
     return _.reduce(collection, function(pass, item) {
-      if (iterator(item) && pass === true) {
-        return true;
-      } else {
-        return false;
-      }
+      return Boolean(pass && iterator(item));
     }, true);
   };
     
@@ -223,14 +219,10 @@
     // TIP: There's a very clever way to re-use every() here.
     var iterator = iterator || _.identity;
 
-    return _.reduce(collection, function(pass, item) {
-      if (iterator(item) || pass === true) {
-        return true;
-      } else {
-        return false;
-      }
-    }, false);
-  };
+    return !_.every(collection, function(item) {
+      return !iterator(item);
+    });
+   };
 
 
   /**
